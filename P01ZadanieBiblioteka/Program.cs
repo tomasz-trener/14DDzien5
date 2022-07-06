@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace P01ZadanieBiblioteka
 {
+    // przerwa 10:25
+
     //https://github.com/tomasz-trener/14DDzien4
     // https://github.com/tomasz-trener/14DDzien5
     internal class Program
