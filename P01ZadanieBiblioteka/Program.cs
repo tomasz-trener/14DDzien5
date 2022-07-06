@@ -63,8 +63,7 @@ namespace P01ZadanieBiblioteka
                                      DataRzeczywistegoZwrotu = new DateTime(2000,3,5)
                                  }
                              }
-                         }
-                         
+                         }  
                     }
                 }
 
