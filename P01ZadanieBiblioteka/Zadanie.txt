@@ -1,0 +1,35 @@
+﻿
+1) Karta
+ - string Numer
+ - Sygnatura[] Sygnatury
+ - DateTime DataZakupu
+ - Karta Nastepna
+ - Karta Poprzednia
+ - Cena Cena
+ - int Wydanie
+ - Autor[] Autorzy
+ - string Tytul 
+2) Czytelnik
+ - string Imie
+ - string Nazwisko
+ - Wypozyczenie[] Wypozyczenia
+3) Sygnatura
+ - int Numer
+ - string Komentarz 
+ - bool Aktywna
+ - Wypozyczenie[] Wypozyczenia
+4) Autor
+ - string Imie
+ - string Nazwisko
+ - string DrugieImie
+5) Wypozyczenie
+ - DateTime DataWypozyczenia
+ - DateTime DataPrzewidywanegoZwrotu
+ - DateTime DataRzeczywistegoZwrotu 
+ - string Uwagi
+ - Czytelnik Czytelnik
+ - Sygnatura Sygnatura
+ - Wypozyczenie Przedluzenie
+6) Cena
+ - double Wartosc
+ - string Komentarz 
