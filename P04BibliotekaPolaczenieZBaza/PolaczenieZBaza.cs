@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -33,8 +34,7 @@ namespace P04BibliotekaPolaczenieZBaza
         }
 
 
-
-        public object[][] WykonajPolecenieSQL(string sql,params SqlParameter[] parametry )
+        public WynikRozbudowany WykonajPolecenieSQLZLiczbaStron(string sql, SqlParameter[] parametry = null, CommandType commandType = CommandType.Text)
         {
             SqlConnection connection; // sluzy do komunikacji z baza 
             SqlCommand command; // przechowywanie polecen sql
@@ -43,8 +43,58 @@ namespace P04BibliotekaPolaczenieZBaza
             connection = new SqlConnection(connString);
 
             command = new SqlCommand(sql, connection);
+            command.CommandType = commandType;
 
-            command.Parameters.AddRange(parametry);
+            if (parametry != null)
+                command.Parameters.AddRange(parametry);
+
+            //command.Parameters.Add("@paramKraj", System.Data.SqlDbType.VarChar);
+            //command.Parameters["@paramKraj"].Value = "pol";
+
+            connection.Open();
+
+            dataReader = command.ExecuteReader(); // wysylamy polecenie do bazy danych 
+
+            List<object[]> listaWierszy = new List<object[]>();
+            int liczbaKolumn = dataReader.FieldCount;
+
+            while (dataReader.Read())
+            {
+                object[] komorki = new object[liczbaKolumn];
+                for (int i = 0; i < liczbaKolumn; i++)
+                    komorki[i] = dataReader.GetValue(i); 
+
+                listaWierszy.Add(komorki);
+            }
+
+            dataReader.NextResult(); // teraz przechodzimy do drugiego SELECT 
+            dataReader.Read(); 
+
+            WynikRozbudowany wynikRozbudowany = new WynikRozbudowany();
+            wynikRozbudowany.Wynik = listaWierszy.ToArray();
+             wynikRozbudowany.LiczbaStron = (int)dataReader["ile"];
+            
+            connection.Close();
+
+            return wynikRozbudowany;
+        }
+
+
+        public object[][] WykonajPolecenieSQL(string sql,  SqlParameter[] parametry=null, CommandType commandType = CommandType.Text)
+        {
+            
+            SqlConnection connection; // sluzy do komunikacji z baza 
+            SqlCommand command; // przechowywanie polecen sql
+            SqlDataReader dataReader; // czytanie wyniku z bazy danych 
+
+            connection = new SqlConnection(connString);
+
+            command = new SqlCommand(sql, connection);
+            command.CommandType = commandType;
+            
+            if(parametry != null)
+                command.Parameters.AddRange(parametry);
+            
             //command.Parameters.Add("@paramKraj", System.Data.SqlDbType.VarChar);
             //command.Parameters["@paramKraj"].Value = "pol";
 

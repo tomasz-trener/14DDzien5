@@ -19,7 +19,7 @@ namespace P07SqlInjection
 
             object[][] wynik=  pzb.WykonajPolecenieSQL(
                 $"select * from zawodnicy where kraj = @paramKraj"
-                    ,new SqlParameter() {ParameterName="@paramKraj", Value=kraj, SqlDbType= System.Data.SqlDbType.VarChar});
+                    ,new SqlParameter[] { new SqlParameter() { ParameterName = "@paramKraj", Value = kraj, SqlDbType = System.Data.SqlDbType.VarChar } });
 
 
             for (int i = 0; i < wynik.Length; i++)
