@@ -62,9 +62,9 @@ namespace P04BibliotekaPolaczenieZBaza
             {
                 object[] komorki = new object[liczbaKolumn];
                 for (int i = 0; i < liczbaKolumn; i++)
-                    komorki[i] = dataReader.GetValue(i); 
+                    komorki[i] = dataReader.GetValue(i);  
 
-                listaWierszy.Add(komorki);
+                listaWierszy.Add(komorki); 
             }
 
             dataReader.NextResult(); // teraz przechodzimy do drugiego SELECT 
